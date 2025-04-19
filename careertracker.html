@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Career Track Recommender</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            background: #f0f2f5;
+            animation: fadeInBody 1.5s ease-in-out;
+        }
+
+        @keyframes fadeInBody {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            animation: slideIn 1s ease;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        h2, h3 {
+            text-align: center;
+            color: #2c3e50;
+            animation: fadeInHeader 1s ease;
+        }
+
+        @keyframes fadeInHeader {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 20px;
+        }
+
+        select, input, button {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            margin-top: 8px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            transition: all 0.3s;
+        }
+
+        select:hover, input:hover {
+            border-color: #007bff;
+            box-shadow: 0 0 8px rgba(0, 123, 255, 0.1);
+        }
+
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-top: 20px;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.2s ease-in-out;
+        }
+
+        button:hover {
+            background: #0056b3;
+            transform: scale(1.05);
+        }
+
+        .results {
+            margin-top: 30px;
+            padding: 20px;
+            background: #eaf4ff;
+            border-left: 5px solid #007bff;
+            border-radius: 10px;
+            animation: fadeInResult 1s ease;
+        }
+
+        @keyframes fadeInResult {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .career-title {
+            color: #007bff;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .career-desc {
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        .course-link, .job-link {
+            color: #28a745;
+            font-weight: bold;
+            text-decoration: none;
+            transition: color 0.3s ease, text-decoration 0.3s ease;
+            margin-right: 10px;
+        }
+
+        .course-link:hover, .job-link:hover {
+            color: #1e7e34;
+            text-decoration: underline;
+        }
+
+        .question-group label {
+            font-weight: normal;
+            margin: 8px 0;
+            display: block;
+            transition: color 0.3s ease, transform 0.2s ease-in-out;
+        }
+
+        .question-group label:hover {
+            color: #007bff;
+            transform: scale(1.02);
+            cursor: pointer;
+        }
+
+        .question-group input[type="radio"] {
+            margin-right: 8px;
+        }
+
+        hr {
+            margin: 40px 0;
+            border: 1px solid #ddd;
+            opacity: 0.7;
+        }
+
+        .interest-select-container {
+            position: relative;
+            animation: pulse 2s infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.03); }
+        }
+
+        .track-item {
+            background: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            margin-bottom: 15px;
+            border-left: 4px solid #007bff;
+            animation: fadeInUp 0.5s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .no-tracks {
+            text-align: center;
+            color: #777;
+            font-style: italic;
+            margin-top: 20px;
+        }
+
+        .job-recommendation {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f9f9f9;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            animation: slideUp 0.5s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .job-recommendation h4 {
+            color: #007bff;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .job-details {
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .apply-button-container {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .apply-button {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.2s ease-in-out;
+        }
+
+        .apply-button:hover {
+            background: #1e7e34;
+            transform: scale(1.03);
+        }
+
+        #resumeUpload {
+            margin-top: 10px;
+        }
+
+        #jobList {
+            margin-top: 10px;
+        }
+
+        .job-listing {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 6px;
+            background-color: #fff;
+        }
+
+        .job-listing h5 {
+            color: #007bff;
+            margin-top: 0;
+            margin-bottom: 5px;
+        }
+
+        .company {
+            font-style: italic;
+            color: #555;
+            margin-bottom: 3px;
+        }
+
+        .location {
+            color: #777;
+            font-size: 0.9em;
+            margin-bottom: 3px;
+        }
+
+        .salary {
+            color: #28a745;
+            font-weight: bold;
+            font-size: 1em;
+        }
+    </style>
+</head>
+<body>
+    <link rel="C:\xampp\htdocs\prabhalregister.html" href="register.htm">
+    <div class="container">
+        <h2><span style="color: #007bff;">🚀</span> Discover Your Career Path & Jobs!</h2>
+
+        <h3>Step 1: Tell Us What Excites You</h3>
+        <div class="question-group">
+            <label>1. What sparks your interest the most?</label>
+            <label><input type="radio" name="q1" value="tech"> <span style="color: #007bff;">💻</span> Building with Code & Technology</label>
+            <label><input type="radio" name="q1" value="design"> <span style="color: #28a745;">🎨</span> Creating Beautiful Interfaces & Experiences</label>
+            <label><input type="radio" name="q1" value="marketing"> <span style="color: #ffc107;">📣</span> Sharing Ideas & Promoting Brands</label>
+            <label><input type="radio" name="q1" value="finance"> <span style="color: #dc3545;">📊</span> Analyzing Numbers & Making Financial Decisions</label>
+            <label><input type="radio" name="q1" value="management"> <span style="color: #6c757d;">🤝</span> Guiding Teams & Organizing Projects</label>
+        </div>
+
+        <div class="question-group">
+            <label>2. Imagine your dream job. What would you be doing?</label>
+            <label><input type="radio" name="q2" value="tech"> <span style="color: #007bff;">👨‍💻</span> Developing innovative software solutions</label>
+            <label><input type="radio" name="q2" value="design"> <span style="color: #28a745;">🖌️</span> Designing engaging and user-friendly products</label>
+            <label><input type="radio" name="q2" value="marketing"> <span style="color: #ffc107;">📈</span> Crafting compelling marketing campaigns</label>
+            <label><input type="radio" name="q2" value="finance"> <span style="color: #dc3545;">💰</span> Forecasting financial trends and managing investments</label>
+            <label><input type="radio" name="q2" value="management"> <span style="color: #6c757d;">leader</span> Leading and motivating a talented team</label>
+        </div>
+
+        <button onclick="evaluateTest()">✨ Find Your Potential Path & Jobs</button>
+
+        <hr>
+
+        <h3>Step 2: Or Choose Your Interest Directly</h3>
+        <div class="interest-select-container">
+            <label for="interest">Select Your Core Interest:</label>
+            <select id="interest">
+                <option value="">-- Explore Options --</option>
+                <option value="tech">🚀 Technology</option>
+                <option value="design">🎨 Design</option>
+                <option value="marketing">📣 Marketing</option>
+                <option value="finance">📊 Finance</option>
+                <option value="management">🤝 Management</option>
+            </select>
+        </div>
+        <button onclick="showTracksAndJobs()">🗺️ See Career Roadmaps & Job Openings</button>
+
+        <div class="results" id="results" style="display: none;">
+            <h3>Your Recommended Career Tracks:</h3>
+        </div>
+
+        <div id="jobRecommendations" style="display: none; margin-top: 30px;">
+            <h3>Job Recommendations Based on Your Interest:</h3>
+            <div id="jobList">
+                </div>
+            <label for="resumeUpload">Upload Your Resume to Apply:</label>
+            <input type="file" id="resumeUpload" accept=".pdf, .doc, .docx">
+            <p style="font-size: 0.9em; color: #777; margin-top: 5px;">(We will use this information to suggest relevant job applications - Note: Actual application process would require backend integration)</p>
+        </div>
+    </div>
+
+    <script>
+        const careerPaths = {
+            tech: [
+                { title: "Web Developer", desc: "Become a master of the web, building interactive and dynamic websites and applications.", link: "https://www.freecodecamp.org/" },
+                { title: "Data Analyst", desc: "Dive into the world of data, uncovering valuable insights and helping organizations make informed decisions.", link: "https://www.coursera.org/specializations/google-data-analytics" },
+                { title: "Software Engineer", desc: "Build and maintain the software that powers our digital world. From applications to systems, you'll be a key architect.", link: "https://www.udacity.com/course/intro-to-programming-nanodegree--nd000" }
+            ],
+            design: [
+                { title: "UI/UX Designer", desc: "Craft seamless and enjoyable experiences for users interacting with digital products.", link: "https://www.coursera.org/specializations/ui-ux-design" },
+                { title: "Graphic Designer", desc: "Communicate visually through compelling logos, branding, and marketing materials.", link: "https://www.skillshare.com/browse/graphic-design" },
+                { title: "Web Designer", desc: "Combine creativity and technical skills to design visually appealing and functional websites.", link: "https://www.freecodecamp.org/learn/responsive-web-design/" }
+            ],
+            marketing: [
+                { title: "Digital Marketer", desc: "Harness the power of online platforms to connect with audiences and promote products or services.", link: "https://www.coursera.org/specializations/digital-marketing" },
+                { title: "Social Media Manager", desc: "Build and engage communities online, shaping brand presence and driving interaction.", link: "https://www.hubspot.com/social-media-marketing-certification" },
+                { title: "Content Creator", desc: "Develop engaging and informative content across various formats to attract and retain an audience.", links: "https://www.coursera.org/specializations/content-marketing" }
+            ],
+            finance: [
+                { title: "Financial Analyst", desc: "Analyze financial data, provide insights, and guide investment decisions for businesses and individuals.", link: "https://www.coursera.org/learn/introduction-finance-accounting" },
+                { title: "Investment Banker", desc: "Help companies raise capital and navigate complex financial transactions.", url: "https://www.investopedia.com/terms/i/investmentbanker.asp" },
+                { title: "Accountant", desc: "Manage financial records, prepare reports, and ensure compliance with regulations.", url: "https://www.aicpa.org/becomeacpa/aboutthecpaexam.html" }
+            ],
+            management: [
+                { title: "Project Manager", desc: "Lead teams, plan projects, and ensure successful execution from start to finish.", link: "https://www.pmi.org/certifications/project-management-pmp" },
+                { title: "Human Resources Manager", desc: "Focus on the people within an organization, managing talent, and fostering a positive work environment.", link: "https://www.shrm.org/certification/catalog/shrm-cp-shrm-scp" },
+                { title: "Business Analyst", desc: "Identify business needs and propose solutions to improve efficiency and achieve organizational goals.", url: "https://www.iiba.org/certification/core-business-analysis-certifications/ecba/" }
+            ]
+        };
+
+        // Dummy job data - Replace with actual job fetching logic
+        const jobOpenings = {
+            tech: [
+                { title: "Junior Web Developer", company: "Tech Solutions Inc.", location: "Bangalore", salary: "₹30,000 - ₹50,000/month", applyLink: "#apply-web-dev" },
+                { title: "Data Science Intern", company: "Data Insights Ltd.", location: "Mumbai", salary: "₹15,000 - ₹25,000/month", applyLink: "#apply-data-intern" },
+                { title: "Frontend Engineer", company: "Innovate Apps", location: "Hyderabad", salary: "₹40,000 - ₹65,000/month", applyLink: "#apply-frontend" }
+            ],
+            design: [
+                { title: "UI Designer", company: "Creative Studios", location: "Delhi", salary: "₹35,000 - ₹60,000/month", applyLink: "#apply-ui-designer" },
+                { title: "Graphic Design Intern", company: "BrandMakers", location: "Chennai", salary: "₹10,000 - ₹20,000/month", applyLink: "#apply-graphic-intern" }
+            ],
+            marketing: [
+                { title: "Digital Marketing Executive", company: "MarketPro Agency", location: "Pune", salary: "₹25,000 - ₹45,000/month", applyLink: "#apply-digital-exec" },
+                { title: "Social Media Specialist", company: "ConnectNow", location: "Kolkata", salary: "₹20,000 - ₹35,000/month", applyLink: "#apply-social-media" }
+            ],
+            finance: [
+                { title: "Financial Analyst Associate", company: "FinanceFirst Corp.", location: "Ahmedabad", salary: "₹45,000 - ₹75,000/month", applyLink: "#apply-fin-analyst" },
+                { title: "Junior Accountant", company: "Accurate Books", location: "Jaipur", salary: "₹20,000 - ₹30,000/month", applyLink: "#apply-jr-accountant" }
+            ],
+            management: [
+                { title: "Project Coordinator", company: "ProjectFlow Systems", location: "Surat", salary: "₹30,000 - ₹55,000/month", applyLink: "#apply-proj-coord" },
+                { title: "HR Assistant", company: "PeoplePlus Org.", location: "Lucknow", salary: "₹18,000 - ₹30,000/month", applyLink: "#apply-hr-assistant" }
+            ]
+        };
+
+        function evaluateTest() {
+            const q1 = document.querySelector('input[name="q1"]:checked');
+            const q2 = document.querySelector('input[name="q2"]:checked');
+            if (!q1 || !q2) {
+                alert("Please answer both questions to get personalized suggestions!");
+                return;
+            }
+            const suggestion = q1.value === q2.value ? q1.value : q1.value;
+            document.getElementById("interest").value = suggestion;
+            showTracksAndJobs();
+        }
+
+        function showTracksAndJobs() {
+            const selectedInterest = document.getElementById("interest").value;
+            const resultsDiv = document.getElementById("results");
+            resultsDiv.innerHTML = "<h3>Your Recommended Career Tracks:</h3>";
+            const jobListDiv = document.getElementById("jobList");
+            jobListDiv.innerHTML = ""; // Clear previous job listings
+
+            if (!careerPaths[selectedInterest] || careerPaths[selectedInterest].length === 0) {
+                resultsDiv.innerHTML += '<p class="no-tracks">No specific tracks found for this interest yet. Stay tuned for updates!</p>';
+                resultsDiv.style.display = "block";
+                document.getElementById("jobRecommendations").style.display = "none";
+                return;
+            }
+
+            careerPaths[selectedInterest].forEach(track => {
+                const trackDiv = document.createElement("div");
+                trackDiv.classList.add("track-item");
+                trackDiv.innerHTML = `
+                    <div class="career-title">${track.title}</div>
+                    <div class="career-desc">${track.desc}</div>
+                    ${track.link ? `<a class="course-link" href="${track.link}" target="_blank">📚 Explore Courses</a>` : ''}
+                `;
+                resultsDiv.appendChild(trackDiv);
+            });
+
+            resultsDiv.style.display = "block";
+
+            // Display job recommendations
+            const jobs = jobOpenings[selectedInterest];
+            if (jobs && jobs.length > 0) {
+                jobs.forEach(job => {
+                    const jobDiv = document.createElement("div");
+                    jobDiv.classList.add("job-listing");
+                    jobDiv.innerHTML = `
+                        <h5>${job.title}</h5>
+                        <p class="company">${job.company}</p>
+                        <p class="location">${job.location}</p>
+                        <p class="salary">${job.salary}</p>
+                        <div class="apply-button-container">
+                            <a class="apply-button" href="${job.applyLink}" target="_blank">Apply Now</a>
+                        </div>
+                    `;
+                    jobListDiv.appendChild(jobDiv);
+                });
+                document.getElementById("jobRecommendations").style.display = "block";
+            } else {
+                jobListDiv.innerHTML = "<p>No job openings available for this interest at the moment. Please check back later.</p>";
+                document.getElementById("jobRecommendations").style.display = "block";
+            }
+        }
+    </script>
+</body>
+</html>

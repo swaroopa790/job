@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Resume Builder</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 600px;
+        }
+
+        h2 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+            animation: slideInDown 0.6s ease-out;
+        }
+
+        @keyframes slideInDown {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        textarea {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 16px;
+            transition: border-color 0.3s ease-in-out;
+        }
+
+        input[type="text"]:focus,
+        textarea:focus {
+            border-color: #007bff;
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+        textarea {
+            min-height: 100px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+            box-shadow: 0 2px 4px rgba(0, 123, 255, 0.3);
+        }
+
+        button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        #resume {
+            display: none;
+            border: 1px solid #ccc;
+            padding: 30px;
+            margin-top: 30px;
+            background: #f9f9f9;
+            width: 8.5in;
+            min-height: 11in;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            font-size: 12pt;
+            line-height: 1.5;
+        }
+
+        #resume h1 {
+            color: #333;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 5px;
+        }
+
+        #resume h3 {
+            color: #555;
+            margin-top: 15px;
+            margin-bottom: 5px;
+        }
+
+        #resume p {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Build Your Impressive Resume</h2>
+
+        <label for="name">Full Name:</label><br>
+        <input type="text" id="name" placeholder="Your Name"><br><br>
+
+        <label for="email">Email Address:</label><br>
+        <input type="text" id="email" placeholder="Your Email"><br><br>
+
+        <label for="education">Education Details:</label><br>
+        <textarea id="education" placeholder="Degrees, Institutions, Dates"></textarea><br><br>
+
+        <label for="experience">Professional Experience:</label><br>
+        <textarea id="experience" placeholder="Job Titles, Companies, Responsibilities, Dates"></textarea><br><br>
+
+        <button onclick="generatePDF()">Generate & Download Resume</button>
+
+        <div id="resume">
+            <h1 id="outName"></h1>
+            <p><strong>Email:</strong> <span id="outEmail"></span></p>
+            <h3>Education</h3>
+            <p id="outEducation"></p>
+            <h3>Experience</h3>
+            <p id="outExperience"></p>
+        </div>
+    </div>
+
+    <script>
+        function generatePDF() {
+            // Fill resume content
+            document.getElementById("outName").innerText = document.getElementById("name").value;
+            document.getElementById("outEmail").innerText = document.getElementById("email").value;
+            document.getElementById("outEducation").innerText = document.getElementById("education").value;
+            document.getElementById("outExperience").innerText = document.getElementById("experience").value;
+
+            const resumeElement = document.getElementById("resume");
+            resumeElement.style.display = "block";
+
+            const opt = {
+                margin: 0.5,
+                filename: 'My_Resume.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+            };
+
+            html2pdf().set(opt).from(resumeElement).save().then(() => {
+                resumeElement.style.display = "none";
+            });
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>AI Skill Analyzer with Images</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f5f9ff;
+      padding: 30px;
+      margin: 0;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .skill-card {
+      background: #f0f8ff;
+      padding: 15px;
+      border-radius: 14px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      text-align: center;
+    }
+
+    .skill-card img {
+      width: 40px;
+      height: 40px;
+      margin-bottom: 8px;
+    }
+
+    .skill-card label {
+      display: flex;
+      justify-content: space-between;
+      font-weight: bold;
+      margin-top: 10px;
+      margin-bottom: 5px;
+    }
+
+    .skill-card input[type="range"] {
+      width: 100%;
+    }
+
+    .range-value {
+      font-weight: normal;
+      font-size: 14px;
+      color: #333;
+    }
+
+    .btn {
+      display: block;
+      margin: 30px auto;
+      padding: 12px 30px;
+      font-size: 16px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+    }
+
+    .analysis-output {
+      margin-top: 30px;
+      background: #e0f0ff;
+      padding: 20px;
+      border-radius: 12px;
+      font-family: monospace;
+      white-space: pre-wrap;
+      min-height: 100px;
+      box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.05);
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>🧠 AI Skill Analyzer (Image Style)</h2>
+
+  <form id="skillForm">
+    <div class="grid-container">
+      <div class="skill-card">
+        <img src="https://img.icons8.com/color/48/html-5.png" alt="HTML">
+        <label>HTML <span class="range-value" id="val-html">3</span></label>
+        <input type="range" name="HTML" min="0" max="5" value="3" oninput="valHtml.innerText=this.value">
+      </div>
+
+      <div class="skill-card">
+        <img src="https://img.icons8.com/color/48/css3.png" alt="CSS">
+        <label>CSS <span class="range-value" id="val-css">3</span></label>
+        <input type="range" name="CSS" min="0" max="5" value="3" oninput="valCss.innerText=this.value">
+      </div>
+
+      <div class="skill-card">
+        <img src="https://img.icons8.com/color/48/javascript.png" alt="JavaScript">
+        <label>JavaScript <span class="range-value" id="val-js">2</span></label>
+        <input type="range" name="JavaScript" min="0" max="5" value="2" oninput="valJs.innerText=this.value">
+      </div>
+
+      <div class="skill-card">
+        <img src="https://img.icons8.com/color/48/python.png" alt="Python">
+        <label>Python <span class="range-value" id="val-python">4</span></label>
+        <input type="range" name="Python" min="0" max="5" value="4" oninput="valPython.innerText=this.value">
+      </div>
+
+      <div class="skill-card">
+        <img src="https://img.icons8.com/external-flaticons-lineal-color-flat-icons/48/sql.png" alt="SQL">
+        <label>SQL <span class="range-value" id="val-sql">3</span></label>
+        <input type="range" name="SQL" min="0" max="5" value="3" oninput="valSql.innerText=this.value">
+      </div>
+
+      <div class="skill-card">
+        <img src="https://img.icons8.com/color/48/java-coffee-cup-logo--v1.png" alt="Java">
+        <label>Java <span class="range-value" id="val-java">2</span></label>
+        <input type="range" name="Java" min="0" max="5" value="2" oninput="valJava.innerText=this.value">
+      </div>
+
+      <div class="skill-card">
+        <img src="https://img.icons8.com/fluency/48/communication.png" alt="Communication">
+        <label>Communication <span class="range-value" id="val-comm">3</span></label>
+        <input type="range" name="Communication" min="0" max="5" value="3" oninput="valComm.innerText=this.value">
+      </div>
+    </div>
+
+    <button type="submit" class="btn">Analyze with AI</button>
+  </form>
+
+  <div id="analysisResult" class="analysis-output">🤖 Awaiting input...</div>
+</div>
+
+<script>
+  const form = document.getElementById('skillForm');
+  const resultDiv = document.getElementById('analysisResult');
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const formData = new FormData(form);
+    const skills = {};
+    formData.forEach((val, key) => {
+      skills[key] = parseInt(val);
+    });
+
+    resultDiv.textContent = "🤖 Thinking...";
+    setTimeout(() => {
+      let response = "📊 Skill Report:\n";
+      for (let [skill, level] of Object.entries(skills)) {
+        let feedback = "";
+        if (level <= 1) feedback = "🚧 Needs improvement.";
+        else if (level <= 3) feedback = "🛠️ Intermediate – getting there.";
+        else feedback = "✅ Great work!";
+        response += `- ${skill}: ${level}/5 → ${feedback}\n`;
+      }
+
+      const lowSkills = Object.entries(skills).filter(([_, val]) => val <= 2);
+      if (lowSkills.length > 0) {
+        response += "\n🎯 Focus Suggestions:\n";
+        for (let [skill] of lowSkills) {
+          response += `🔍 Improve your ${skill} skills.\n`;
+        }
+      } else {
+        response += "\n🌟 You're solid across all areas!\n";
+      }
+
+      resultDiv.textContent = response;
+    }, 1000);
+  });
+</script>
+
+</body>
+</html>

@@ -1,3 +1,18 @@
+<?php
+$servername = "localhost";
+$username = "root"; // Replace with your database username
+$password = ""; // Replace with your database password
+$dbname = "login_db"; // Replace with your database name
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
+}
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,7 +55,6 @@
       <input type="email" name="email" placeholder="Email" required><br>
       <input type="password" name="password" placeholder="Password" required><br>
       <button class="btn" type="submit">Register</button>
-      <a href="loginpage.html" class="link">Already have an account? Login</a>
     </form>
   </div>
 </body>

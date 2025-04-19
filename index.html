@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>JobSensei - Smart Career Navigator</title>
+  <link rel="stylesheet" href="style.css"/>
+
+</head>
+<body>
+  <!-- Navigation -->
+  <header>
+    <nav class="navbar">
+      <h1 class="logo">JobSensei</h1>
+      <ul class="nav-links">
+        <li><a href="skill.html">Skill Analyzer</a></li>
+        <li><a href="#recommender">Job Recommender</a></li>
+        <li><a href="careertracker.html">Courses</a></li>
+        <li><a href="hack.html">Resume Builder</a></li>
+        <li><button class="btn" onclick="toggleDarkMode()">🌓</button></li>
+        <li><button class="btn" onclick="toggleAuthModal()">Login</button></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-content">
+      <h2>Empowering Your Career Journey</h2>
+      <p>Smart insights, job matches, and learning paths for students from Tier-2/3 cities.</p>
+      <div class="hero-buttons">
+        <a href="" class="btn">Analyze Skills</a>
+        <a href="#recommender" class="btn">Get Jobs</a>
+        <a href="#courses" class="btn">Find Courses</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skill Analyzer -->
+  <div class="container">
+    <h2>🧠 AI Skill Analyzer (Image Style)</h2>
+  
+    <form id="skillForm">
+      <div class="grid-container">
+        <div class="skill-card">
+          <div style="margin: 0 auto; width: 50px; height: 50px; background-color: hwb(0 94% 6% / 0.849); border-radius: 50%; display: flex; justify-content: center; align-items: center;">
+          
+            <img src="https://img.icons8.com/color/48/html-5.png" alt="HTML" style="width: 30px; height: 30px;">
+          <img src="https://img.icons8.com/color/48/html-5.png" alt="HTML">
+          <label>HTML <span class="range-value" id="val-html">3</span></label>
+          <input type="range" name="HTML" min="0" max="5" value="3" oninput="valHtml.innerText=this.value">
+        </div>
+        
+
+        <div style="margin: 0 auto; width: 50px; height: 50px; background-color: hwb(0 94% 6% / 0.849); border-radius: 50%; display: flex; justify-content: center; align-items: center;"></div>
+        <div class="skill-card">
+          <img src="https://img.icons8.com/color/48/css3.png" alt="CSS">
+          <label>CSS <span class="range-value" id="val-css">3</span></label>
+          <input type="range" name="CSS" min="0" max="5" value="3" oninput="valCss.innerText=this.value">
+        </div>
+        
+        <div style="margin: 0 auto; width: 50px; height: 50px; background-color: hwb(0 94% 6% / 0.849); border-radius: 50%; display: flex; justify-content: center; align-items: center;"></div>
+        <div class="skill-card">
+          <img src="https://img.icons8.com/color/48/javascript.png" alt="JavaScript">
+          <label>JavaScript <span class="range-value" id="val-js">2</span></label>
+          <input type="range" name="JavaScript" min="0" max="5" value="2" oninput="valJs.innerText=this.value">
+        </div>
+      
+
+      <div style="margin: 0 auto; width: 50px; height: 50px; background-color: hwb(0 94% 6% / 0.849); border-radius: 50%; display: flex; justify-content: center; align-items: center;"></div>
+        <div class="skill-card">
+          <img src="https://img.icons8.com/color/48/python.png" alt="Python">
+          <label>Python <span class="range-value" id="val-python">4</span></label>
+          <input type="range" name="Python" min="0" max="5" value="4" oninput="valPython.innerText=this.value ">
+        </div>
+      
+      
+      <div style="margin: 0 auto; width: 50px; height: 50px; background-color: hwb(0 94% 6% / 0.849); border-radius: 50%; display: flex; justify-content: center; align-items: center;"></div>
+        <div class="skill-card">
+          <img src="https://img.icons8.com/external-flaticons-lineal-color-flat-icons/48/sql.png" alt="SQL">
+          <label>SQL <span class="range-value" id="val-sql">3</span></label>
+          <input type="range" name="SQL" min="0" max="5" value="3" oninput="valSql.innerText=this.value">
+        </div>
+
+      <div style="margin: 0 auto; width: 50px; height: 50px; background-color: hwb(0 94% 6% / 0.849); border-radius: 50%; display: flex; justify-content: center; align-items: center;"></div>
+        <div class="skill-card">
+          <img src="https://img.icons8.com/color/48/java-coffee-cup-logo--v1.png" alt="Java">
+          <label>Java <span class="range-value" id="val-java">2</span></label>
+          <input type="range" name="Java" min="0" max="5" value="2" oninput="valJava.innerText=this.value">
+        </div>
+
+      <div style="margin: 0 auto; width: 50px; height: 50px; background-color: hwb(0 94% 6% / 0.849); border-radius: 50%; display: flex; justify-content: center; align-items: center;"></div>
+        <div class="skill-card">
+          <img src="https://img.icons8.com/fluency/48/communication.png" alt="Communication">
+          <label>Communication <span class="range-value" id="val-comm">3</span></label>
+          <input type="range" name="Communication" min="0" max="5" value="3" oninput="valComm.innerText=this.value">
+        </div>
+      </div>
+  
+      <button type="submit" class="btn">Analyze with AI</button>
+    </form>
+  
+    <div id="analysisResult" class="analysis-output">🤖 Awaiting input...</div>
+  </div>
+  
+  <script>
+    const form = document.getElementById('skillForm');
+    const resultDiv = document.getElementById('analysisResult');
+  
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+  
+      const formData = new FormData(form);
+      const skills = {};
+      formData.forEach((val, key) => {
+        skills[key] = parseInt(val);
+      });
+  
+      resultDiv.textContent = "🤖 Thinking...";
+      setTimeout(() => {
+        let response = "📊 Skill Report:\n";
+        for (let [skill, level] of Object.entries(skills)) {
+          let feedback = "";
+          if (level <= 1) feedback = "🚧 Needs improvement.";
+          else if (level <= 3) feedback = "🛠️ Intermediate – getting there.";
+          else feedback = "✅ Great work!";
+          response += `- ${skill}: ${level}/5 → ${feedback}\n`;
+        }
+  
+        const lowSkills = Object.entries(skills).filter(([_, val]) => val <= 2);
+        if (lowSkills.length > 0) {
+          response += "\n🎯 Focus Suggestions:\n";
+          for (let [skill] of lowSkills) {
+            response += `🔍 Improve your ${skill} skills.\n`;
+          }
+        } else {
+          response += "\n🌟 You're solid across all areas!\n";
+        }
+  
+        resultDiv.textContent = response;
+      }, 1000);
+    });
+  </script>
+  </div>
+  
+  
+  <!-- Job Recommender -->
+  <section id="recommender" class="feature-section">
+    <h3>Smart Job Recommender</h3>
+    <p>Enter your skills (comma-separated):</p>
+    <href link="text" id="userSkillsInput" placeholder="e.g., JavaScript, Python, SQL" style="width: 100%; padding: 10px; margin-bottom: 20px;" />
+  
+    <!-- Job 1 -->
+    <div class="job-card">
+      <h4>Frontend Developer</h4>
+      <p><strong>Location:</strong> Remote</p>
+      <p><strong>Description:</strong> Build and maintain interactive web interfaces using React.</p>
+      <p><strong>Required Skills:</strong> JavaScript, HTML, CSS, React</p>
+      <button onclick="matchJob('Frontend Developer', ['JavaScript', 'HTML', 'CSS', 'React'], 'Remote', 'Build and maintain interactive web interfaces using React.')">Match Me</button>
+    </div>
+  
+    <!-- Job 2 -->
+    <div class="job-card">
+      <h4>Data Analyst</h4>
+      <p><strong>Location:</strong> Mumbai</p>
+      <p><strong>Description:</strong> Analyze large datasets and provide insights for business decisions.</p>
+      <p><strong>Required Skills:</strong> Python, SQL, Excel</p>
+      <button onclick="matchJob('Data Analyst', ['Python', 'SQL', 'Excel'], 'Mumbai', 'Analyze large datasets and provide insights for business decisions.')">Match Me</button>
+    </div>
+  
+    <!-- Result Box -->
+    <div class="result" id="match-result" style="display: none; margin-top: 20px;">
+      <p id="result-text" style="font-weight: bold;"></p>
+      <p id="job-details" style="margin-top: 10px;"></p>
+    </div>
+  </section>
+  
+  <script>
+    function matchJob(jobTitle, requiredSkills, location, description) {
+      const userInput = document.getElementById('userSkillsInput').value;
+      if (!userInput.trim()) {
+        alert('Please enter your skills first!');
+        return;
+      }
+  
+      const userSkills = userInput.split(',').map(skill => skill.trim().toLowerCase());
+      const matchedSkills = requiredSkills.filter(skill => userSkills.includes(skill.toLowerCase()));
+      const matchPercentage = (matchedSkills.length / requiredSkills.length) * 100;
+  
+      const resultText = document.getElementById('result-text');
+      const resultDiv = document.getElementById('match-result');
+      const jobDetails = document.getElementById('job-details');
+  
+      if (matchPercentage >= 75) {
+        resultText.textContent = `✅ You are a great match for the ${jobTitle}! Skill match: ${matchPercentage.toFixed(1)}%`;
+      } else if (matchPercentage >= 50) {
+        resultText.textContent = `👍 You're a good match for the ${jobTitle}. Skill match: ${matchPercentage.toFixed(1)}%`;
+      } else {
+        resultText.textContent = `⚠️ You may need to improve your skills for the ${jobTitle}. Skill match: ${matchPercentage.toFixed(1)}%`;
+      }
+  
+      jobDetails.innerHTML = `
+        <strong>Job Title:</strong> ${jobTitle}<br>
+        <strong>Location:</strong> ${location}<br>
+        <strong>Description:</strong> ${description}<br>
+        <strong>Matched Skills:</strong> ${matchedSkills.join(', ') || 'None'}
+      `;
+  
+      resultDiv.style.display = 'block';
+    }
+  </script>
+
+  <!-- Course Suggestions -->
+   <href="C:\xampp\htdocs\prabhal\careertracker.html" id="courses" class="feature-section">
+    <h3>Course Suggestions</h3>
+    <p>Get best courses and YouTube tutorials to learn and grow.</p>
+  <!-- <section id="courses" class="feature-section">
+    <button onclick="alert('Course Suggestions Coming Soon!')">Suggest Courses</button>
+  </section> -->
+
+  <!-- Resume Builder -->
+   <link rel="C:\xampp\htdocs\prabhal\hack.html"id="resume" class="feature-section">
+    
+   <h3>Resume Builder</h3>
+    <p>Build your resume with our easy-to-use tool.</p>
+    <button onclick="alert('Resume Builder Coming Soon!')">Build Resume</button>
+  </section>
+
+  <!-- Chatbot -->
+  <div class="chatbot-icon" onclick="toggleChat()">
+    💬
+  </div>
+  <div id="chatbot" class="chatbot-box">
+    <h4>JobSensei Bot</h4>
+    <div id="chat-messages"></div>
+    <input type="text" id="userInput" placeholder="Ask me anything..." />
+    <button onclick="sendMessage()">Send</button>
+  </div>
+
+  <!-- Login/Signup Modal -->
+  <div id="authModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="toggleAuthModal()">&times;</span>
+      <h2>Login to JobSensei</h2>
+      <input type="email" placeholder="Email" />
+      <input type="password" placeholder="Password" />
+      <button class="btn">Login</button>
+      <p>Don't have an account? <a href="#">Sign up</a></p>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 JobSensei. All rights reserved.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

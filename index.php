@@ -47,28 +47,58 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['skillForm'])) {
   </section>
 
   <!-- Skill Analyzer -->
-  <section id="analyzer" class="feature-section">
-    <h3>Skill Gap Analyzer</h3>
-    <p>Enter your skills and rate your proficiency (0 - Beginner to 5 - Expert).</p>
-    <form id="skillForm" method="POST">
-      <div class="skill-group"><label>HTML</label><input type="range" name="html" min="0" max="5" value="0" /></div>
-      <div class="skill-group"><label>CSS</label><input type="range" name="css" min="0" max="5" value="0" /></div>
-      <div class="skill-group"><label>JavaScript</label><input type="range" name="js" min="0" max="5" value="0" /></div>
-      <div class="skill-group"><label>Python</label><input type="range" name="python" min="0" max="5" value="0" /></div>
-      <div class="skill-group"><label>Java</label><input type="range" name="java" min="0" max="5" value="0" /></div>
-      <div class="skill-group"><label>SQL</label><input type="range" name="sql" min="0" max="5" value="0" /></div>
-      <div class="skill-group"><label>C</label><input type="range" name="c" min="0" max="5" value="0" /></div>
-      <div class="skill-group"><label>C++</label><input type="range" name="cpp" min="0" max="5" value="0" /></div>
-      <div class="skill-group"><label>Communication</label><input type="range" name="communication" min="0" max="5" value="0" /></div>
-  
-      <button type="submit" name="skillForm" class="btn">Analyze Skills</button>
-    </form>
-  
-    <div id="analysisResult" class="analysis-output">
-      <?php if (isset($analysisResult)) echo $analysisResult; ?>
-    </div>
-  </section>
-  
+ 
+
+<script>
+  document.getElementById('skillForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const form = e.target;
+    const skills = [
+      { label: 'HTML', value: form.html.value },
+      { label: 'CSS', value: form.css.value },
+      { label: 'JavaScript', value: form.js.value },
+      { label: 'Python', value: form.python.value },
+      { label: 'Java', value: form.java.value },
+      { label: 'SQL', value: form.sql.value },
+      { label: 'C', value: form.c.value },
+      { label: 'C++', value: form.cpp.value },
+      { label: 'Communication', value: form.communication.value }
+    ];
+
+    const labels = skills.map(skill => skill.label);
+    const dataValues = skills.map(skill => skill.value);
+
+    const ctx = document.getElementById('skillChart').getContext('2d');
+    if (window.skillRadar) window.skillRadar.destroy();
+
+    window.skillRadar = new Chart(ctx, {
+      type: 'radar',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Skill Proficiency',
+          data: dataValues,
+          backgroundColor: 'rgba(54, 162, 235, 0.2)',
+          borderColor: 'rgba(54, 162, 235, 1)',
+          borderWidth: 2,
+          pointBackgroundColor: 'rgba(54, 162, 235, 1)'
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          r: {
+            angleLines: { display: true },
+            suggestedMin: 0,
+            suggestedMax: 5,
+            ticks: { stepSize: 1 }
+          }
+        }
+      }
+    });
+  });
+</script>
   <!-- Other sections remain unchanged -->
 
   <footer>
