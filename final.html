@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>JobSensei – Your Smart Career Navigator</title>
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f9fafc;
+      color: #222;
+      scroll-behavior: smooth;
+      padding-top: 60px;
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: #203a43;
+      padding: 10px 20px;
+      z-index: 1000;
+    }
+
+    nav ul {
+      display: flex;
+      justify-content: center;
+      list-style: none;
+      gap: 20px;
+    }
+
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    nav ul li a:hover {
+      text-decoration: underline;
+    }
+
+    header {
+      background: url('https://images.unsplash.com/photo-1581091012184-5c0d0d837f73?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+      color: white;
+      text-align: center;
+      padding: 120px 20px;
+    }
+
+    header h1 {
+      font-size: 3.2rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+      text-shadow: 2px 2px 5px #000;
+    }
+
+    header p {
+      font-size: 1.3rem;
+      max-width: 700px;
+      margin: 0 auto;
+      opacity: 0.95;
+      text-shadow: 1px 1px 4px #000;
+    }
+
+    .cta-btn {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 14px 30px;
+      background-color: #ff7e5f;
+      color: white;
+      font-weight: 600;
+      text-decoration: none;
+      border-radius: 10px;
+      transition: background 0.3s ease;
+    }
+
+    .cta-btn:hover {
+      background-color: #feb47b;
+    }
+
+    section {
+      padding: 60px 20px;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .section-title {
+      font-size: 2.4rem;
+      text-align: center;
+      margin-bottom: 40px;
+      color: #203a43;
+    }
+
+    .about {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      align-items: center;
+    }
+
+    .about img {
+      width: 100%;
+      max-width: 500px;
+      border-radius: 16px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    }
+
+    .about-text {
+      flex: 1;
+      font-size: 1.1rem;
+      color: #444;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    .feature {
+      background: white;
+      padding: 25px;
+      border-radius: 14px;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.1);
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .feature:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    }
+
+    .feature img {
+      width: 60px;
+      height: 60px;
+      object-fit: contain;
+      margin-bottom: 15px;
+    }
+
+    .feature button {
+      margin-top: 10px;
+      padding: 8px 16px;
+      background-color: #ff7e5f;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .feature button:hover {
+      background-color: #feb47b;
+    }
+
+    #cta {
+      text-align: center;
+      background: url('https://images.unsplash.com/photo-1573164713988-8665fc963095?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+      color: white;
+      padding: 80px 20px;
+    }
+
+    #cta h2 {
+      font-size: 2.4rem;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 6px #000;
+    }
+
+    footer {
+      background: #203a43;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      font-size: 0.95rem;
+    }
+
+    footer a {
+      color: #ffd;
+      text-decoration: underline;
+      margin: 0 5px;
+    }
+
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2.2rem;
+      }
+
+      .about {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#features">Features</a></li>
+      <li><a href="#cta">Get Started</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section -->
+  <header>
+    <h1>JobSensei</h1>
+    <p>Your Smart Career Navigator for Tier-2 & Tier-3 Cities</p>
+    <a href="#features" class="cta-btn">Explore Features</a>
+  </header>
+
+  <!-- About Section -->
+  <section id="about">
+    <h2 class="section-title">About JobSensei</h2>
+    <div class="about">
+      <img src="https://images.unsplash.com/photo-1573497491208-6b1acb260507?auto=format&fit=crop&w=800&q=80" alt="Career planning">
+      <div class="about-text">
+        <p>JobSensei is an AI-powered platform designed to uplift young talent from Tier-2 and Tier-3 cities. We empower individuals by providing personalized career guidance, skills analysis, and relevant job recommendations. With smart analytics and curated learning resources, we help you bridge the gap between education and employment.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features">
+    <h2 class="section-title">Key Features</h2>
+    <div class="features">
+
+      <!-- Skill Gap Analysis -->
+      <div class="feature">
+        <img src="https://cdn-icons-png.flaticon.com/512/921/921347.png" alt="Skill Analysis" />
+        <h3>Skill Gap Analysis</h3>
+        <p>Get personalized insights into which skills you lack and how to improve to reach your dream career.</p>
+        <progress value="65" max="100" style="width:100%; margin-top: 10px;"></progress>
+        <a href="SkillAnalyzer.js" class="btn">read more</a>
+      </div>
+
+      <!-- Smart Job Recommender -->
+      <a href="JobRecommender.js" style="text-decoration: none; color: inherit;">
+        <div class="feature">
+          <img src="https://cdn-icons-png.flaticon.com/512/2620/2620277.png" alt="Job Match" />
+          <h3>Smart Job Recommender</h3>
+          <p>Our AI system matches you with jobs that align with your profile, interests, and local availability.</p>
+          <a href="JobRecommender.js" class="btn">See matches</a>
+        </div>
+      </a>
+
+      <!-- Course Suggestions -->
+      <a href="CourseSuggestions.js" style="text-decoration: none; color: inherit;">
+        <div class="feature">
+          <img src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png" alt="Course Suggestion" />
+          <h3>Course Suggestions</h3>
+          <p>Get curated online course recommendations from YouTube, Coursera, and more to fill your skill gaps.</p>
+          <a href="SkillAnalyzer.js" class="btn">ViewCourses</a>
+        </div>
+      </a>
+
+      <!-- Career Progress Tracker -->
+      <div class="feature">
+        <img src="https://cdn-icons-png.flaticon.com/512/2989/2989988.png" alt="Progress" />
+        <h3>Career Progress Tracker</h3>
+        <p>Visualize your goals, track milestones, and stay on top of your career development journey.</p>
+        <div style="height: 6px; background: #ccc; border-radius: 3px;">
+          <div style="width: 75%; height: 100%; background: #00c896; border-radius: 3px;"></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+ 
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 JobSensei. Built with ❤️ to empower dreams.</p>
+    <p>
+      <a href="#about">About</a> |
+      <a href="#features">Features</a>
+    </p>
+  </footer>
+
+</body>
+</html>
